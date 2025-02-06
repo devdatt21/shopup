@@ -7,18 +7,26 @@ import { useSelector, useDispatch } from 'react-redux'
 import { addToCart } from '../../redux/cartSlice'
 import { useRouter } from 'next/navigation'
 
-const productDetailsPage = () => {
+const ProductDetailsPage = () => {
 
     const selectedProduct = useSelector((state) => state.product.selectedProduct);
     const dispatch = useDispatch();
     const router = useRouter();
 
+    if (!selectedProduct) {
+        return (
+          <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
+            <p className="text-gray-700 text-xl">No product selected.</p>
+          </div>
+        );
+    }
   
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
 
+
     <div className="w-full max-w-lg bg-white shadow-lg rounded-2xl overflow-hidden">
-      <Image src={selectedProduct.image} alt={selectedProduct.name} className="w-full h-64 object-cover" width={100} height={100} />
+      <Image src={selectedProduct.image || "../../public/images/1.jpeg"} alt="product image" className="w-full h-64 object-cover" width={100} height={100} />
       <div className="p-6">
 
 
@@ -46,4 +54,4 @@ const productDetailsPage = () => {
   )
 }
 
-export default productDetailsPage;
+export default ProductDetailsPage;

@@ -19,13 +19,10 @@ const ProductCard = ({product}) => {
             <Link href='/productDetails' onClick={()=>{dispatch(setSelectedProduct(product))}} >
                 <Image
                     src={product.image}
-                    alt={product.name}
+                    alt="product image"
                     className="w-full h-48 object-cover"
                     width={100}
                     height={100}
-
-
-
                 />
             </Link>
             <div className="p-4">
