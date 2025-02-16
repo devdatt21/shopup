@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import CustomAlert from '../../components/CustomAlert'
 
-const CheckoutPage = () => {
+const CheckoutPage = (values) => {
   const [alert, setAlert] = useState(null);
   const cartItems = useSelector((state) => state.cart.items);
   const totalPrice = useSelector((state) => state.cart.totalPrice);
@@ -19,6 +19,9 @@ const CheckoutPage = () => {
     cardCVV: '',
   });
 
+  
+  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCustomerDetails({ ...customerDetails, [name]: value });
@@ -29,6 +32,7 @@ const CheckoutPage = () => {
     console.log('Checkout details:', customerDetails);
   };
 
+  
   return (
     <div className="min-h-screen bg-gray-50 p-6 flex justify-center">
       <div className="w-full max-w-7xl bg-white shadow-lg rounded-2xl p-6 flex gap-8">
@@ -94,6 +98,34 @@ const CheckoutPage = () => {
                 className="w-full p-3 mt-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
+
+            
+            <div className="mb-4">
+              <label htmlFor="city" className='block text-gray-700 font-medium'>City</label>
+              <select 
+                type="select" 
+                id="city" 
+                name="city" 
+                onChange={values.handleChange}
+                required
+                style={{
+                            width:"100%", 
+                            padding:"0.75rem", 
+                            marginTop:"0.5rem", 
+                            border:"1px solid #d1d5db", 
+                            borderRadius:"0.375rem",
+                            boxShadow:"0 1px 2px rgba(0,0,0,0,0.5)",
+                            outline:"none",
+                        }}>
+                
+                
+                <option value="">Select</option>
+                <option value="surat">surat</option>
+                <option value="amdavad">amdavasd</option>
+                <option value="gandhinagar">gandhinagar</option>
+            </select>
+            </div>
+
 
             <div className="mb-4">
               <label htmlFor="address" className="block text-gray-700 font-medium">Address:</label>

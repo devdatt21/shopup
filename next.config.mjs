@@ -1,4 +1,17 @@
+// next.config.mjs
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-export default nextConfig;
+const nextConfig = {
+    experimental: {
+      serverComponentsExternalPackages: ["next-auth"],
+    },
+    webpack(config) {
+      config.externals = {
+        ...config.externals,
+        "next-auth": "commonjs next-auth",
+      };
+      return config;
+    },
+  };
+  
+  export default nextConfig;
+  
