@@ -30,27 +30,8 @@ export default function Home() {
 
     
     fetchProducts();
-  }, [dispatch]);
+  }, []);
 
-  // useEffect(()=>{
-
-  //   const fetchCart = async () => {
-  //     const response = await axios.get("/api/cart",{
-  //       params : {uid:session.user.id},
-  //     })
-  //     const cartItems = response.data;
-
-  //     dispatch(setCart(cartItems.products));
-      
-  //   }
-
-  //   if(session?.user?.id)
-  //   {
-  //     fetchCart();
-  //   }
-
-
-  // },[session?.user?.id])
 
   return (
     <section className={`w-full flex-center flex-col ${themeMode === "dark" ? "bg-slate-900" : "bg-gray-200"}`}>

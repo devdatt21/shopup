@@ -1,7 +1,6 @@
 "use client"
 
 import React from 'react'
-import { ShoppingCart } from 'lucide-react'
 import Image from 'next/image'
 import { useSelector, useDispatch } from 'react-redux'
 import { addToCart } from '../../redux/cartSlice'
@@ -45,7 +44,7 @@ const ProductDetailsPage = () => {
           router.push('/cart');
         }} 
         className="w-full flex items-center justify-center gap-2 p-3 bg-blue-500 text-white text-lg font-semibold rounded-lg hover:bg-blue-600">
-          <ShoppingCart size={18} /> Add to Cart
+           Add to Cart
         </button>
       </div>
 

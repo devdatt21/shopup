@@ -6,7 +6,8 @@ import { addToCart, decreaseQuantity,setCart } from "../../redux/cartSlice";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios";
-import { debounce} from "lodash";
+import { syncCartToDB } from "../../redux/cartSlice";
+import Link from "next/link";
 
 const cartPage = () => {
   const {data : session} = useSession();
@@ -14,6 +15,7 @@ const cartPage = () => {
   const totalPrice = useSelector((state) => state.cart.totalPrice);
   const totalQuantity = useSelector((state) => state.cart.totalQuantity);
   const dispatch = useDispatch();
+  
 
   // getting cart details from DB
   useEffect(() => {
@@ -24,13 +26,10 @@ const cartPage = () => {
         const response = await axios.get("/api/cart", {
           params: { uid: session.user.id },
         });
-  
-        console.log("Cart API Response:", response.data); 
-  
+    
         const cartData = response.data;
-  
+
         const products = cartData.products;
-        console.log("Cart Products :", products); 
 
         dispatch(setCart(products));
       } catch (error) {
@@ -41,37 +40,12 @@ const cartPage = () => {
     fetchCart();
   }, [session?.user?.id]);
 
+  useEffect(() => {
+    if (session?.user?.id) {
+      dispatch(syncCartToDB(session.user.id));
+  }
+  }, [cartItems, session?.user?.id, dispatch])
   
-  const updateCart = debounce(async () => {
-      if(session?.user?.id && cartItems.length>0)
-      {
-        try {
-          await axios.post("/api/cart",
-            {
-              userId:session.user.id,
-              cartItems,
-            },
-            
-          )
-
-          console.log("cart gone to server");
-
-        } catch (error) {
-          console.log("error in cart sending to server",error);
-        }
-      }
-      else
-      {
-        console.warn("user not logged in");
-      }
-  },1000)
- 
-  useEffect(()=>{
-    updateCart();
-    return () => {updateCart.cancel()};
-
-  },[cartItems,session?.user?.id]);
-
   
 
   return (
@@ -84,9 +58,9 @@ const cartPage = () => {
         ) : (
           <div>
             <ul className="divide-y divide-gray-200">
-              {cartItems.map((item) => (
+              {cartItems.map((item,index) => (
                 <li
-                  key={item.id}
+                  key={index}
                   className="flex justify-between items-center py-4"
                 >
                   <div className="flex items-center gap-4">
@@ -137,7 +111,11 @@ const cartPage = () => {
               </div>
             )}
           </div>
+          
         )}
+        <Link href="/checkout" className="black_btn m-8">
+            Checkout
+        </Link>
       </div>
     </div>
   );

@@ -24,7 +24,7 @@ export async function POST(req){
     const body = await req.json();
     const {userId, cartItems} = body;
 
-    console.log(body);
+    
 
     try {
         await db();

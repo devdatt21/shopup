@@ -63,9 +63,7 @@ const Nav = () => {
             Your Cart
           </Link>
 
-          <Link href="/checkout" className="black_btn m-2">
-            Checkout
-          </Link>
+          
           
           <Link href="/api/auth/signout" className="black_btn m-2">
             Sign Out

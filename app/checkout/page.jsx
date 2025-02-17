@@ -1,18 +1,26 @@
 "use client"
+
+import { useSession } from 'next-auth/react';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { setCart } from '@/ redux/cartSlice';
 import CustomAlert from '../../components/CustomAlert'
+import axios from 'axios';
 
 const CheckoutPage = (values) => {
   const [alert, setAlert] = useState(null);
   const cartItems = useSelector((state) => state.cart.items);
   const totalPrice = useSelector((state) => state.cart.totalPrice);
   const totalQuantity = useSelector((state) => state.cart.totalQuantity);
+  const dispatch = useDispatch();
+  const {data : session} = useSession();
+  const userId = session?.user?.id;
 
   const [customerDetails, setCustomerDetails] = useState({
     name: '',
-    email: '',
+    city:'',
     address: '',
     cardNumber: '',
     cardExpiry: '',
@@ -20,17 +28,54 @@ const CheckoutPage = (values) => {
   });
 
   
+  // getting cart details from DB
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        if (!session?.user?.id) return;
   
+        const response = await axios.get("/api/cart", {
+          params: { uid: session.user.id },
+        });
+    
+        const cartData = response.data;
+
+        const products = cartData.products;
+
+        dispatch(setCart(products));
+      } catch (error) {
+        console.error("Error fetching cart:", error);
+      }
+    };
+  
+    fetchCart();
+  }, [session?.user?.id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCustomerDetails({ ...customerDetails, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Checkout details:', customerDetails);
+    console.log("Checkout details:", customerDetails);
+  
+
+    try {
+      const response = await axios.post("/api/order", {customerDetails, totalPrice, cartItems, userId}, {
+        headers: { "Content-Type": "application/json" },
+      });
+
+      console.log("order details : cart items : ",cartItems)
+  
+      console.log("Order created successfully:", response.data);
+      window.alert("Order placed successfully!");
+    } catch (error) {
+      console.error("Error creating order:", error.response?.data || error);
+      window.alert("Error creating order. Check the console for details.");
+    }
   };
+  
 
   
   return (
@@ -45,8 +90,8 @@ const CheckoutPage = (values) => {
           ) : (
             <div>
               <ul className="divide-y divide-gray-200">
-                {cartItems.map((item) => (
-                  <li key={item.id} className="flex justify-between items-center py-4">
+                {cartItems.map((item,index) => (
+                  <li key={index} className="flex justify-between items-center py-4">
                     <div className="flex items-center gap-4">
                       <img src={item.image} alt={item.name} className="w-16 h-16 rounded-lg object-cover" />
                       <div>
@@ -85,28 +130,15 @@ const CheckoutPage = (values) => {
               />
             </div>
 
-            <div className="mb-4">
-              <label htmlFor="email" className="block text-gray-700 font-medium">Email:</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={customerDetails.email}
-                onChange={handleChange}
-                required
-                placeholder="Enter your email address"
-                className="w-full p-3 mt-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              />
-            </div>
 
-            
             <div className="mb-4">
               <label htmlFor="city" className='block text-gray-700 font-medium'>City</label>
               <select 
                 type="select" 
                 id="city" 
                 name="city" 
-                onChange={values.handleChange}
+                onChange={handleChange}
+                value={customerDetails.city}
                 required
                 style={{
                             width:"100%", 
@@ -120,9 +152,10 @@ const CheckoutPage = (values) => {
                 
                 
                 <option value="">Select</option>
-                <option value="surat">surat</option>
-                <option value="amdavad">amdavasd</option>
-                <option value="gandhinagar">gandhinagar</option>
+                <option value="Surat">Surat</option>
+                <option value="Jamnagar">Jamnagar</option>
+                <option value="Gandhinagar">Gandhinagar</option>
+                <option value="Vadodara">Vadodara</option>
             </select>
             </div>
 
