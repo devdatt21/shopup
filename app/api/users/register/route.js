@@ -9,7 +9,6 @@ export async function POST(req) {
 
   try {
 
-    console.log("hello ",body.email, body.password);
     await db();
 
     const {email, password} = body;

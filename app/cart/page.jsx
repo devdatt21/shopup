@@ -9,7 +9,7 @@ import axios from "axios";
 import { syncCartToDB } from "../../redux/cartSlice";
 import Link from "next/link";
 
-const cartPage = () => {
+const CartPage = () => {
   const {data : session} = useSession();
   const cartItems = useSelector((state) => state.cart.items);
   const totalPrice = useSelector((state) => state.cart.totalPrice);
@@ -121,4 +121,4 @@ const cartPage = () => {
   );
 };
 
-export default cartPage;
+export default CartPage;

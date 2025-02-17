@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useEffect } from 'react'
+import React from 'react'
 import ProductCard from '@/ components/ProductCard'
 import { useSelector, } from 'react-redux'
 
 
 
-const searchPage = () => {
+const SearchPage = () => {
     const searchString = useSelector((state) => state.search.searchString);
     const products = useSelector((state) => state.product.products);
 
@@ -36,4 +36,4 @@ const searchPage = () => {
   )
 }
 
-export default searchPage;
+export default SearchPage;

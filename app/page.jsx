@@ -10,7 +10,6 @@ export default function Home() {
   const themeMode = useSelector((state) => state.theme.themeMode);
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
-  const {data:session} = useSession();
 
   useEffect(() => {
     const fetchProducts = async () => {

@@ -1,7 +1,7 @@
 "use client";
 
 import {useSession} from "next-auth/react"
-import Image from "@/ node_modules/next/image";
+import Image from "next/image";
 import Link from "next/link";
 import { setSearchString } from "../redux/searchSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -53,7 +53,7 @@ const Nav = () => {
         />
       </div>
 
-      <button onClick={handleToggleTheme} className="black_btn ml-auto mr-5">
+      <button onClick={handleToggleTheme} className="black_btn ml-auto mr-2">
         {themeMode === "light" ? "Dark" : "Light"}
       </button>
 
