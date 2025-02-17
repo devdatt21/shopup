@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from 'react'
-import ProductCard from '../../components/ProductCard'
+import ProductCard from '@/ components/ProductCard'
 import { useSelector, } from 'react-redux'
 
 

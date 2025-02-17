@@ -1,4 +1,5 @@
   "use client"
+  
   import "../styles/globals.css";
   import Nav from "../components/Nav";
   import store from "../redux/store";

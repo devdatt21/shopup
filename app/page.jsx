@@ -3,9 +3,7 @@ import { useSession } from "next-auth/react";
 import ProductCard from "../components/ProductCard";
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "../redux/productSlice";
-import {setCart} from "../redux/cartSlice";
 import { useEffect} from "react";
-import axios from "axios";
 
 export default function Home() {
   

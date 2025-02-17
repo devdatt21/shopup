@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { setCart } from '@/ redux/cartSlice';
-import CustomAlert from '../../components/CustomAlert'
+import CustomAlert from '@/ components/CustomAlert'
 import axios from 'axios';
 
 const CheckoutPage = (values) => {

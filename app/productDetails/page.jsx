@@ -3,7 +3,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { useSelector, useDispatch } from 'react-redux'
-import { addToCart } from '../../redux/cartSlice'
+import { addToCart } from '@/ redux/cartSlice'
 import { useRouter } from 'next/navigation'
 
 const ProductDetailsPage = () => {
