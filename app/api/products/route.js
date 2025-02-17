@@ -1,6 +1,6 @@
 import { db } from "@/ utils/db";
 import Products from "@/ models/Products";
-import { NextResponse } from "@/ node_modules/next/server";
+import { NextResponse } from "next/server";
 
 export const GET = async (req) => {
     
