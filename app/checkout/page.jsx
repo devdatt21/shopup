@@ -79,24 +79,25 @@ const CheckoutPage = (values) => {
 
   
   return (
-    <div className="min-h-screen bg-gray-50 p-6 flex justify-center">
-      <div className="w-full max-w-7xl bg-white shadow-lg rounded-2xl p-6 flex gap-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6 flex justify-center">
+      <div className="w-full max-w-7xl bg-white dark:bg-gray-800 shadow-lg dark:shadow-gray-700 rounded-2xl p-6 flex gap-8">
 
+        {/* Order Summary */}
         <div className="flex-1">
-          <h1 className="text-3xl font-bold text-gray-800 mb-6">🛍️ Order Summary</h1>
+          <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6">🛍️ Order Summary</h1>
 
           {cartItems.length === 0 ? (
-            <p className="text-gray-600 text-lg">Your cart is empty.</p>
+            <p className="text-gray-600 dark:text-gray-300 text-lg">Your cart is empty.</p>
           ) : (
             <div>
-              <ul className="divide-y divide-gray-200">
-                {cartItems.map((item,index) => (
+              <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+                {cartItems.map((item, index) => (
                   <li key={index} className="flex justify-between items-center py-4">
                     <div className="flex items-center gap-4">
                       <img src={item.image} alt={item.name} className="w-16 h-16 rounded-lg object-cover" />
                       <div>
-                        <h2 className="text-xl font-semibold text-gray-900">{item.name}</h2>
-                        <p className="text-gray-600">${item.price} x {item.quantity}</p>
+                        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">{item.name}</h2>
+                        <p className="text-gray-600 dark:text-gray-300">${item.price} x {item.quantity}</p>
                       </div>
                     </div>
                   </li>
@@ -105,19 +106,21 @@ const CheckoutPage = (values) => {
 
               {totalPrice > 0 && (
                 <div className="mt-6 border-t pt-4 text-right">
-                  <p className="text-lg font-medium">Total Quantity: {totalQuantity}</p>
-                  <p className="text-xl font-bold text-gray-800">Total Price: ${totalPrice.toFixed(2)}</p>
+                  <p className="text-lg font-medium text-gray-800 dark:text-gray-300">Total Quantity: {totalQuantity}</p>
+                  <p className="text-xl font-bold text-gray-800 dark:text-gray-100">Total Price: ${totalPrice.toFixed(2)}</p>
                 </div>
               )}
             </div>
           )}
         </div>
 
+        {/* Checkout Form */}
         <div className="w-96 flex-1">
-          <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">Checkout</h2>
+          <h2 className="text-2xl font-semibold text-center text-gray-800 dark:text-gray-100 mb-6">Checkout</h2>
           <form onSubmit={handleSubmit}>
+            {/* Full Name */}
             <div className="mb-4">
-              <label htmlFor="name" className="block text-gray-700 font-medium">Full Name:</label>
+              <label htmlFor="name" className="block text-gray-700 dark:text-gray-300 font-medium">Full Name:</label>
               <input
                 type="text"
                 id="name"
@@ -126,42 +129,32 @@ const CheckoutPage = (values) => {
                 onChange={handleChange}
                 required
                 placeholder="Enter your full name"
-                className="w-full p-3 mt-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full p-3 mt-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100"
               />
             </div>
 
-
+            {/* City Dropdown */}
             <div className="mb-4">
-              <label htmlFor="city" className='block text-gray-700 font-medium'>City</label>
+              <label htmlFor="city" className='block text-gray-700 dark:text-gray-300 font-medium'>City</label>
               <select 
-                type="select" 
                 id="city" 
                 name="city" 
                 onChange={handleChange}
                 value={customerDetails.city}
                 required
-                style={{
-                            width:"100%", 
-                            padding:"0.75rem", 
-                            marginTop:"0.5rem", 
-                            border:"1px solid #d1d5db", 
-                            borderRadius:"0.375rem",
-                            boxShadow:"0 1px 2px rgba(0,0,0,0,0.5)",
-                            outline:"none",
-                        }}>
-                
-                
+                className="w-full p-3 mt-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
                 <option value="">Select</option>
                 <option value="Surat">Surat</option>
                 <option value="Jamnagar">Jamnagar</option>
                 <option value="Gandhinagar">Gandhinagar</option>
                 <option value="Vadodara">Vadodara</option>
-            </select>
+              </select>
             </div>
 
-
+            {/* Address */}
             <div className="mb-4">
-              <label htmlFor="address" className="block text-gray-700 font-medium">Address:</label>
+              <label htmlFor="address" className="block text-gray-700 dark:text-gray-300 font-medium">Address:</label>
               <input
                 type="text"
                 id="address"
@@ -170,14 +163,16 @@ const CheckoutPage = (values) => {
                 onChange={handleChange}
                 required
                 placeholder="Enter your address"
-                className="w-full p-3 mt-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full p-3 mt-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100"
               />
             </div>
 
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">Payment Details</h3>
+            {/* Payment Details */}
+            <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">Payment Details</h3>
 
+            {/* Card Number */}
             <div className="mb-4">
-              <label htmlFor="cardNumber" className="block text-gray-700 font-medium">Card Number:</label>
+              <label htmlFor="cardNumber" className="block text-gray-700 dark:text-gray-300 font-medium">Card Number:</label>
               <input
                 type="text"
                 id="cardNumber"
@@ -186,12 +181,13 @@ const CheckoutPage = (values) => {
                 onChange={handleChange}
                 required
                 placeholder="Enter your card number"
-                className="w-full p-3 mt-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full p-3 mt-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100"
               />
             </div>
 
+            {/* Card Expiry */}
             <div className="mb-4">
-              <label htmlFor="cardExpiry" className="block text-gray-700 font-medium">Card Expiry Date:</label>
+              <label htmlFor="cardExpiry" className="block text-gray-700 dark:text-gray-300 font-medium">Card Expiry Date:</label>
               <input
                 type="text"
                 id="cardExpiry"
@@ -200,12 +196,13 @@ const CheckoutPage = (values) => {
                 onChange={handleChange}
                 required
                 placeholder="MM/YY"
-                className="w-full p-3 mt-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full p-3 mt-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100"
               />
             </div>
 
+            {/* Card CVV */}
             <div className="mb-6">
-              <label htmlFor="cardCVV" className="block text-gray-700 font-medium">CVV:</label>
+              <label htmlFor="cardCVV" className="block text-gray-700 dark:text-gray-300 font-medium">CVV:</label>
               <input
                 type="text"
                 id="cardCVV"
@@ -214,10 +211,11 @@ const CheckoutPage = (values) => {
                 onChange={handleChange}
                 required
                 placeholder="Enter CVV"
-                className="w-full p-3 mt-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full p-3 mt-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100"
               />
             </div>
 
+            {/* Submit Button */}
             <button
               type="submit"
               className="w-full p-3 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -226,10 +224,14 @@ const CheckoutPage = (values) => {
               Proceed to Payment
             </button>
           </form>
+
+          {/* Alert */}
           {alert && <CustomAlert message={alert.message} type={alert.type} onClose={() => setAlert(null)} />}
         </div>
+
       </div>
     </div>
+
 
   );
 };

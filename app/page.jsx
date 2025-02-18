@@ -1,5 +1,4 @@
 "use client";
-import { useSession } from "next-auth/react";
 import ProductCard from "../components/ProductCard";
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "../redux/productSlice";
@@ -25,20 +24,27 @@ export default function Home() {
       }
     };
 
-    
     fetchProducts();
   }, []);
 
 
   return (
-    <section className={`w-full flex-center flex-col ${themeMode === "dark" ? "bg-slate-900" : "bg-gray-200"}`}>
+    <section className={`w-full flex-center flex-col ${
+      themeMode === "dark" 
+        ? "bg-slate-900 text-white" 
+        : "bg-gray-200 text-gray-900"
+    }`}>
       <div className="mt-5 prompt_layout">
         {products && products.length > 0 ? (
           products.map((product, index) => (
             <ProductCard key={product.id || index} product={product} />
           ))
         ) : (
-          <p className="text-center text-gray-500">No products available</p>
+          <p className={`text-center ${
+            themeMode === "dark" 
+              ? "text-gray-400" 
+              : "text-gray-500"
+          }`}>No products available</p>
         )}
       </div>
     </section>

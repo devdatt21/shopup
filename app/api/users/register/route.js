@@ -11,7 +11,7 @@ export async function POST(req) {
 
     await db();
 
-    const {email, password} = body;
+    const {email, password, cpassword} = body;
     const existingUser = await User.findOne({email});
 
     if(existingUser) 

@@ -49,20 +49,17 @@ const CartPage = () => {
   
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6 flex justify-center">
-      <div className="w-full max-w-3xl bg-white shadow-lg rounded-2xl p-6">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">🛒 Your Cart</h1>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6 flex justify-center">
+      <div className="w-full max-w-3xl bg-white dark:bg-gray-800 shadow-lg dark:shadow-gray-700 rounded-2xl p-6">
+        <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6">🛒 Your Cart</h1>
 
         {cartItems.length === 0 ? (
-          <p className="text-gray-600 text-lg">Your cart is empty.</p>
+          <p className="text-gray-600 dark:text-gray-300 text-lg">Your cart is empty.</p>
         ) : (
           <div>
-            <ul className="divide-y divide-gray-200">
-              {cartItems.map((item,index) => (
-                <li
-                  key={index}
-                  className="flex justify-between items-center py-4"
-                >
+            <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+              {cartItems.map((item, index) => (
+                <li key={index} className="flex justify-between items-center py-4">
                   <div className="flex items-center gap-4">
                     <img
                       src={item.image}
@@ -70,10 +67,10 @@ const CartPage = () => {
                       className="w-16 h-16 rounded-lg object-cover"
                     />
                     <div>
-                      <h2 className="text-xl font-semibold text-gray-900">
+                      <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
                         {item.name}
                       </h2>
-                      <p className="text-gray-600">
+                      <p className="text-gray-600 dark:text-gray-300">
                         ${item.price} x {item.quantity}
                       </p>
                     </div>
@@ -82,16 +79,16 @@ const CartPage = () => {
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => dispatch(decreaseQuantity(item))}
-                      className="px-3 py-1 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300"
+                      className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600"
                     >
                       -
                     </button>
-                    <span className="text-lg font-semibold">
+                    <span className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                       {item.quantity}
                     </span>
                     <button
                       onClick={() => dispatch(addToCart(item))}
-                      className="px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                      className="px-3 py-1 bg-blue-500 dark:bg-blue-600 text-white rounded-md hover:bg-blue-600 dark:hover:bg-blue-500"
                     >
                       +
                     </button>
@@ -101,23 +98,24 @@ const CartPage = () => {
             </ul>
 
             {totalPrice > 0 && (
-              <div className="mt-6 border-t pt-4 text-right">
-                <p className="text-lg font-medium">
+              <div className="mt-6 border-t border-gray-200 dark:border-gray-700 pt-4 text-right">
+                <p className="text-lg font-medium text-gray-800 dark:text-gray-300">
                   Total Quantity: {totalQuantity}
                 </p>
-                <p className="text-xl font-bold text-gray-800">
+                <p className="text-xl font-bold text-gray-800 dark:text-gray-100">
                   Total Price: ${totalPrice.toFixed(2)}
                 </p>
               </div>
             )}
           </div>
-          
         )}
-        <Link href="/checkout" className="black_btn m-8">
-            Checkout
+
+        <Link href="/checkout" className="black_btn m-8 bg-blue-500 dark:bg-blue-600 border-gray-200 dark:border-gray-700">
+          Checkout
         </Link>
       </div>
     </div>
+
   );
 };
 

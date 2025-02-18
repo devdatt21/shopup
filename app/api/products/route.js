@@ -1,18 +1,28 @@
 import { db } from "@/ utils/db";
 import Products from "@/ models/Products";
 import { NextResponse } from "next/server";
+import { redirect } from "@/ node_modules/next/dist/server/api-utils";
 
 export const GET = async (req) => {
     
     try {
       await db();
+      const {searchParams} = new URL(req.url);
+
+      const pid = searchParams.get("productId"); 
+
+      if(pid)
+      {
+        const selectedProduct = await Products.findOne({_id:pid});
+        return new Response(JSON.stringify(selectedProduct));
+      }
 
       const products = await Products.find({});
 
       return new Response(JSON.stringify(products));
 
     } catch (error) {
-      
+      return new Response(error)
     }
 }
 
